@@ -38,16 +38,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -55,11 +45,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  double _counter = 0.0;
+  bool expandido = false;
 
   void _incrementCounter() {
     setState(() {
       _counter++;
+    });
+  }
+
+  void _toggle() {
+    setState(() {
+      expandido = !expandido;
+      print(expandido);
     });
   }
 
@@ -70,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Column(
+      body: Column(
         children: [
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -79,19 +77,30 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Text('BLOCO A'),
                 IconButton(
-                  icon: Icon(Icons.arrow_downward),
-                  onPressed: toggle,)
+                  icon: AnimatedRotation(
+                          duration: const Duration(milliseconds: 500), 
+                          turns: expandido ? 0.5 : 1.0,
+                          child: Icon(Icons.arrow_downward),),
+                  onPressed: _toggle
+                )
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('elkgfkgj'),
-                Icon(Icons.delete_sharp)
-              ],
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10.0),
+            child: Align(
+              // color: Color.fromARGB(255, 234, 235, 235),
+              heightFactor: expandido ? 1.5 : 0.0,
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('elkgfkgj'),
+                    Icon(Icons.delete_sharp)
+                  ],
+                ),
+              ),
             ),
           )
         ],
@@ -104,7 +113,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
-  void toggle() {
-  }
 }
