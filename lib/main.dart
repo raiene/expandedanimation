@@ -13,21 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
@@ -79,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 IconButton(
                   icon: AnimatedRotation(
                           duration: const Duration(milliseconds: 500), 
-                          turns: expandido ? 0.5 : 1.0,
+                          turns: expandido ? 0.5 : 0,
                           child: Icon(Icons.arrow_downward),),
                   onPressed: _toggle
                 )
@@ -88,8 +73,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
-            child: Align(
+            child: AnimatedAlign(
               // color: Color.fromARGB(255, 234, 235, 235),
+              duration: Duration(seconds: 2),
+              alignment: Alignment.center,
               heightFactor: expandido ? 1.5 : 0.0,
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
